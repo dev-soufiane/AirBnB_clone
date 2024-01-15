@@ -8,9 +8,7 @@ from models.base_model import BaseModel
 from models import storage
 
 
-
 class HBNBCommand(cmd.Cmd):
-
     """Defines the command interpreter Class.
 
     Attributes:
@@ -19,13 +17,12 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
 
-    
     def emptyline(self):
         """Execution of an empty line doesn't do anything."""
         pass
 
     def default(self, user_input):
-        """Handles commands that dont match any specified ones."""       
+        """Handles commands that dont match any specified ones."""
         self.handle_cmd(user_input)
 
     def handle_cmd(self, user_input):
@@ -60,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
         return command
 
     def dict_update(self, cls_name, obj_id, s_dict):
-        """Method to help update an instance based on his ID with a dictionary."""
+        """Help update an instance based on his ID with a dictionary."""
         sd = s_dict.replace("'", '"')
         dic = json.loads(sd)
         if not cls_name:
@@ -90,7 +87,6 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
-
     def do_create(self, user_input):
         """Method to creates a new instance of BaseModel."""
         if user_input == "" or user_input is None:
@@ -103,7 +99,7 @@ class HBNBCommand(cmd.Cmd):
             print(b.id)
 
     def do_show(self, user_input):
-        """Method that prints the string representation 
+        """Method that prints the string representation
         of an instance based on class name and ID.
         """
         if user_input == "" or user_input is None:
@@ -122,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
                     print(storage.all()[key])
 
     def do_destroy(self, user_input):
-        """Method that deletes an instance based 
+        """Method that deletes an instance based
         on the class name and ID.
         """
         if user_input == "" or user_input is None:
@@ -142,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
                     storage.save()
 
     def do_all(self, user_input):
-        """Prints all string representation of all instances 
+        """Prints all string representation of all instances
         based or not on the class name.
         """
         if user_input != "":
@@ -151,14 +147,14 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             else:
                 n_list = [str(obj) for key, obj in storage.all().items()
-                      if type(obj).__name__ == strings[0]]
+                          if type(obj).__name__ == strings[0]]
                 print(n_list)
         else:
             newList = [str(obj) for key, obj in storage.all().items()]
             print(newList)
 
     def do_count(self, user_input):
-        """Method that Retrieve the number of instances of 
+        """Method that Retrieve the number of instances of
         a given class.
         """
         strings = user_input.split(' ')
@@ -173,15 +169,15 @@ class HBNBCommand(cmd.Cmd):
             print(len(matches))
 
     def do_update(self, user_input):
-        """Method that updates an instance based on the class name 
+        """Method that updates an instance based on the class name
         and id by adding or updating attribute.
         """
         if user_input == "" or user_input is None:
             print("** class name missing **")
             return
 
-        pattern = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|(?:(\S)+)))?)?)?'
-        match = re.search(pattern, user_input)
+        p = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|(?:(\S)+)))?)?)?'
+        match = re.search(p, user_input)
         cls_name = match.group(1)
         obj_id = match.group(2)
         attribute = match.group(3)
