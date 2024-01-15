@@ -172,4 +172,54 @@ class HBNBCommand(cmd.Cmd):
                     strings[0] + '.')]
             print(len(matches))
 
+    def do_update(self, user_input):
+        """Method that updates an instance based on the class name 
+        and id by adding or updating attribute.
+        """
+        if user_input == "" or user_input is None:
+            print("** class name missing **")
+            return
 
+        pattern = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|(?:(\S)+)))?)?)?'
+        match = re.search(pattern, user_input)
+        cls_name = match.group(1)
+        obj_id = match.group(2)
+        attribute = match.group(3)
+        value = match.group(4)
+        if not match:
+            print("** class name missing **")
+        elif cls_name not in storage.classes():
+            print("** class doesn't exist **")
+        elif obj_id is None:
+            print("** instance id missing **")
+        else:
+            key = "{}.{}".format(cls_name, obj_id)
+            if key not in storage.all():
+                print("** no instance found **")
+            elif not attribute:
+                print("** attribute name missing **")
+            elif not value:
+                print("** value missing **")
+            else:
+                t_cast = None
+                if not re.search('^".*"$', value):
+                    if '.' in value:
+                        t_cast = float
+                    else:
+                        t_cast = int
+                else:
+                    value = value.replace('"', '')
+                attributes = storage.attributes()[cls_name]
+                if attribute in attributes:
+                    value = attributes[attribute](value)
+                elif t_cast:
+                    try:
+                        value = t_cast(value)
+                    except ValueError:
+                        pass
+                setattr(storage.all()[key], attribute, value)
+                storage.all()[key].save()
+
+
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
