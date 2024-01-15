@@ -34,27 +34,27 @@ class HBNBCommand(cmd.Cmd):
         if not match:
             return user_input
         cls_name = match.group(1)
-        method = match.group(2)
+        mtd = match.group(2)
         args = match.group(3)
-        match_uid_and_args = re.search('^"([^"]*)"(?:, (.*))?$', args)
-        if match_uid_and_args:
-            uid = match_uid_and_args.group(1)
-            attr_or_dict = match_uid_and_args.group(2)
+        match_u_a = re.search('^"([^"]*)"(?:, (.*))?$', args)
+        if match_u_a:
+            obj_id = match_u_a.group(1)
+            att_dict = match_u_a.group(2)
         else:
-            uid = args
-            attr_or_dict = False
+            obj_id = args
+            att_dict = False
 
-        attr_and_value = ""
-        if method == "update" and attr_or_dict:
-            match_dict = re.search('^({.*})$', attr_or_dict)
+        att_val = ""
+        if mtd == "update" and att_dict:
+            match_dict = re.search('^({.*})$', att_dict)
             if match_dict:
-                self.dict_update(cls_name, uid, match_dict.group(1))
+                self.dict_update(cls_name, obj_id, match_dict.group(1))
                 return ""
-            match_attr_and_value = re.search(
-                '^(?:"([^"]*)")?(?:, (.*))?$', attr_or_dict)
-            if match_attr_and_value:
-                attr_and_value = (match_attr_and_value.group(
-                    1) or "") + " " + (match_attr_and_value.group(2) or "")
-        command = method + " " + cls_name + " " + uid + " " + attr_and_value
+            match_att_val = re.search(
+                '^(?:"([^"]*)")?(?:, (.*))?$', att_dict)
+            if match_att_val:
+                att_val = (match_att_val.group(
+                    1) or "") + " " + (match_att_val.group(2) or "")
+        command = mtd + " " + cls_name + " " + obj_id + " " + att_val
         self.onecmd(command)
         return command
