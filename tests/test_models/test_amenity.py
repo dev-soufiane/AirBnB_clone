@@ -1,55 +1,37 @@
 #!/usr/bin/python3
-"""Unit tests for the Amenity class."""
+
+"""
+    All the test for the amenity model are implemented here.
+"""
 
 import unittest
-from datetime import datetime
-import time
-from models.amenity import Amenity
-import re
-import json
-from models.engine.file_storage import FileStorage
-import os
-from models import storage
 from models.base_model import BaseModel
+from models.amenity import Amenity
 
 
 class TestAmenity(unittest.TestCase):
-    """Test cases for the Amenity class."""
+    """
+        Testing Amenity class
+    """
 
-    def setUp(self):
-        """Set up test methods."""
-        pass
+    def test_Amenity_inheritence(self):
+        """
+            tests that the Amenity class Inherits from BaseModel
+        """
+        new_amenity = Amenity()
+        self.assertIsInstance(new_amenity, BaseModel)
 
-    def tearDown(self):
-        """Tear down test methods."""
-        self.resetStorage()
-        pass
+    def test_Amenity_attributes(self):
+        """
+            Test that Amenity class had name attribute.
+        """
+        new_amenity = Amenity()
+        self.assertTrue("name" in new_amenity.__dir__())
 
-    def resetStorage(self):
-        """Reset FileStorage data."""
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
-
-    def test_8_instantiation(self):
-        """Test instantiation of Amenity class."""
-        amenity_instance = Amenity()
-        self.assertEqual(
-                str(type(amenity_instance)),
-                "<class 'models.amenity.Amenity'>")
-        self.assertIsInstance(amenity_instance, Amenity)
-        self.assertTrue(issubclass(type(amenity_instance), BaseModel))
-
-    def test_8_attributes(self):
-        """Test the attributes of Amenity class."""
-        amenity_attributes = storage.attributes()["Amenity"]
-        amenity_instance = Amenity()
-        for attribute, attr_type in amenity_attributes.items():
-            self.assertTrue(hasattr(amenity_instance, attribute))
-            self.assertEqual(
-                    type(getattr(amenity_instance, attribute, None)),
-                    attr_type)
-
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_Amenity_attribute_type(self):
+        """
+            Test that Amenity class had name attribute's type.
+        """
+        new_amenity = Amenity()
+        name_value = getattr(new_amenity, "name")
+        self.assertIsInstance(name_value, str)

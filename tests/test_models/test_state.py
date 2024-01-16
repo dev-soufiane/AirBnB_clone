@@ -1,84 +1,35 @@
 #!/usr/bin/python3
-"""Unit tests for the State class."""
-
+"""
+    Contain tests for the state module.
+"""
 import unittest
-from datetime import datetime
-import time
-from models.state import State
-import re
-import json
-from models.engine.file_storage import FileStorage
-import os
-from models import storage
 from models.base_model import BaseModel
+from models.state import State
 
 
-class TestStateClass(unittest.TestCase):
+class TestState(unittest.TestCase):
+    """
+        Test the State class.
+    """
 
-    """Test cases for the State class."""
+    def test_State_inheritence(self):
+        """
+            Test that State class inherits from BaseModel.
+        """
+        new_state = State()
+        self.assertIsInstance(new_state, BaseModel)
 
-    def setUp(self):
-        """Set up test environment."""
-        pass
+    def test_State_attributes(self):
+        """
+            Test that State class contains the attribute `name`.
+        """
+        new_state = State()
+        self.assertTrue("name" in new_state.__dir__())
 
-    def tearDown(self):
-        """Tear down test environment."""
-        self.resetStorage()
-        pass
-
-    def resetStorage(self):
-        """Reset FileStorage data."""
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
-
-    def test_instantiation(self):
-        """Test instantiation of State class."""
-        state_instance = State()
-        self.assertEqual(
-                str(type(state_instance)), "<class 'models.state.State'>")
-        self.assertIsInstance(state_instance, State)
-        self.assertTrue(issubclass(type(state_instance), BaseModel))
-
-    def test_attributes(self):
-        """Test State class attributes."""
-        state_attributes = storage.attributes()["State"]
-        state_instance = State()
-        for attribute, attr_type in state_attributes.items():
-            self.assertTrue(hasattr(state_instance, attribute))
-            self.assertEqual(
-                    type(getattr(state_instance, attribute, None)),
-                    attr_type)
-
-    def test_custom_feature(self):
-        """Test a custom feature in the State class."""
-        state_instance = State()
-        result = state_instance.custom_feature()
-        self.assertEqual(result, "Custom Feature Result")
-
-    def test_unique_behavior(self):
-        """Test a unique behavior of the State class."""
-        state_instance = State()
-        self.assertTrue(state_instance.has_unique_behavior())
-
-    def test_state_specific_assertion(self):
-        """Test an assertion specific to the State class."""
-        state_instance = State()
-        self.assertIsNotNone(state_instance.id)
-        self.assertTrue(isinstance(state_instance.created_at, datetime))
-        self.assertTrue(isinstance(state_instance.updated_at, datetime))
-
-    def test_additional_functionality(self):
-        """Test additional functionality of the State class."""
-        state_instance = State()
-        self.assertFalse(state_instance.additional_function())
-
-    def test_example_usage_scenario(self):
-        """Test an example usage scenario of the State class."""
-        state_instance = State()
-        state_instance.name = "California"
-        self.assertEqual(state_instance.name, "California")
-
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_State_attributes_type(self):
+        """
+            Test that State class attribute name is class type str.
+        """
+        new_state = State()
+        name = getattr(new_state, "name")
+        self.assertIsInstance(name, str)

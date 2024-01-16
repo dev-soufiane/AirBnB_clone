@@ -1,53 +1,45 @@
 #!/usr/bin/python3
-"""Unit tests for the Review class."""
+
+"""
+    All the test for the user model are implemented here.
+"""
 
 import unittest
-from datetime import datetime
-import time
-from models.review import Review
-import re
-import json
-from models.engine.file_storage import FileStorage
-import os
-from models import storage
 from models.base_model import BaseModel
+from models.review import Review
 
 
 class TestReview(unittest.TestCase):
-    """Test cases for the Review class."""
+    """
+        Testing Review class
+    """
 
-    def setUp(self):
-        """Set up test methods."""
-        pass
+    def test_Review_inheritance(self):
+        """
+            tests that the Review class Inherits from BaseModel
+        """
+        new_review = Review()
+        self.assertIsInstance(new_review, BaseModel)
 
-    def tearDown(self):
-        """Tear down test methods."""
-        self.resetStorage()
-        pass
+    def test_Review_attributes(self):
+        """
+            Test that Review class has place_id, user_id and text
+            attributes.
+        """
+        new_review = Review()
+        self.assertTrue("place_id" in new_review.__dir__())
+        self.assertTrue("user_id" in new_review.__dir__())
+        self.assertTrue("text" in new_review.__dir__())
 
-    def resetStorage(self):
-        """Reset FileStorage data."""
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
-
-    def test_8_instantiation(self):
-        """Test instantiation of Review class."""
-        review_instance = Review()
-        self.assertEqual(
-                str(type(review_instance)), "<class 'models.review.Review'>")
-        self.assertIsInstance(review_instance, Review)
-        self.assertTrue(issubclass(type(review_instance), BaseModel))
-
-    def test_8_attributes(self):
-        """Test the attributes of Review class."""
-        review_attributes = storage.attributes()["Review"]
-        review_instance = Review()
-        for attribute, attr_type in review_attributes.items():
-            self.assertTrue(hasattr(review_instance, attribute))
-            self.assertEqual(
-                    type(getattr(review_instance, attribute, None)), attr_type)
-
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_Review_attributes(self):
+        """
+            Test that Review class has place_id, user_id and text
+            attributes.
+        """
+        new_review = Review()
+        place_id = getattr(new_review, "place_id")
+        user_id = getattr(new_review, "user_id")
+        text = getattr(new_review, "text")
+        self.assertIsInstance(place_id, str)
+        self.assertIsInstance(user_id, str)
+        self.assertIsInstance(text, str)
