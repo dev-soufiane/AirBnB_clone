@@ -1,23 +1,15 @@
 #!/usr/bin/python3
-"""This script is the base model"""
+"""This module defines the base model class."""
 
-import uuid
 from datetime import datetime
+import uuid
 from models import storage
 
 
 class BaseModel:
-
-    """Class from which all other classes will inherit"""
-
+    """BaseModel class from which other classes inherit."""
     def __init__(self, *args, **kwargs):
-        """Initializes instance attributes
-
-        Args:
-            - *args: list of arguments
-            - **kwargs: dict of key-values arguments
-        """
-
+        """Initializes instance attributes."""
         if kwargs is not None and kwargs != {}:
             for key in kwargs:
                 if key == "created_at":
@@ -35,22 +27,20 @@ class BaseModel:
             storage.new(self)
 
     def __str__(self):
-        """Returns official string representation"""
-
+        """Returns official string representation."""
         return "[{}] ({}) {}".\
             format(type(self).__name__, self.id, self.__dict__)
 
     def save(self):
-        """updates the public instance attribute updated_at"""
-
+        """Updates the attribute (updated_at.)"""
         self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):
-        """returns a dictionary containing all keys/values of __dict__"""
+        """Returns a dictionary representation of the object."""
+        data = self.__dict__.copy()
+        data["__class__"] = type(self).__name__
+        data["created_at"] = data["created_at"].isoformat()
+        data["updated_at"] = data["updated_at"].isoformat()
 
-        my_dict = self.__dict__.copy()
-        my_dict["__class__"] = type(self).__name__
-        my_dict["created_at"] = my_dict["created_at"].isoformat()
-        my_dict["updated_at"] = my_dict["updated_at"].isoformat()
-        return my_dict
+        return data
