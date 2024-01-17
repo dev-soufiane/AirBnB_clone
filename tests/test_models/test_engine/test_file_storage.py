@@ -16,7 +16,7 @@ class TestFileStorage(unittest.TestCase):
     """Class test for the filestorage class."""
 
     def setUp(self):
-        """Sets up test methods."""
+        """Method to set up test."""
         pass
 
     def resetStorage(self):
