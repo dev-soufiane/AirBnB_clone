@@ -26,7 +26,7 @@ class TestFileStorage(unittest.TestCase):
             os.remove(FileStorage._FileStorage__file_path)
 
     def tearDown(self):
-        """Tears down test methods."""
+        """Method to tear down."""
         self.resetStorage()
         pass
 
