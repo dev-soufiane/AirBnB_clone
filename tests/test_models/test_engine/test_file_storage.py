@@ -31,7 +31,7 @@ class TestFileStorage(unittest.TestCase):
         pass
 
     def test_5_instantiation(self):
-        """Tests instantiation of storage class."""
+        """Method to check instances of filestorage class."""
         self.assertEqual(type(storage).__name__, "FileStorage")
 
     def test_3_init_no_args(self):
