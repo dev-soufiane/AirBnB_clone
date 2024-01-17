@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Unittest module for the FileStorage class."""
+"""Defines unittest module for the filestorage class."""
 
 import unittest
 from datetime import datetime
