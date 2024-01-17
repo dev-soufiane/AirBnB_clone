@@ -43,7 +43,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(str(e.exception), msg)
 
     def test_3_init_many_args(self):
-        """Tests __init__ with many arguments."""
+        """Method test for __init__ with more than one args."""
         self.resetStorage()
         with self.assertRaises(TypeError) as e:
             b = FileStorage(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
@@ -51,14 +51,14 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(str(e.exception), msg)
 
     def test_5_attributes(self):
-        """Tests class attributes."""
+        """Method to test attributes."""
         self.resetStorage()
         self.assertTrue(hasattr(FileStorage, "_FileStorage__file_path"))
         self.assertTrue(hasattr(FileStorage, "_FileStorage__objects"))
         self.assertEqual(getattr(FileStorage, "_FileStorage__objects"), {})
 
     def help_test_all(self, classname):
-        """Helper tests all() method for classname."""
+        """Method Help to test all() for classname."""
         self.resetStorage()
         self.assertEqual(storage.all(), {})
 
@@ -69,35 +69,35 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(storage.all()[key], o)
 
     def test_5_all_base_model(self):
-        """Tests all() method for BaseModel."""
+        """Method test all() for BaseModel."""
         self.help_test_all("BaseModel")
 
     def test_5_all_user(self):
-        """Tests all() method for User."""
+        """Method test all() for User."""
         self.help_test_all("User")
 
     def test_5_all_state(self):
-        """Tests all() method for State."""
+        """Method test all() for State."""
         self.help_test_all("State")
 
     def test_5_all_city(self):
-        """Tests all() method for City."""
+        """Method test all() for City."""
         self.help_test_all("City")
 
     def test_5_all_amenity(self):
-        """Tests all() method for Amenity."""
+        """Method test all() for Amenity."""
         self.help_test_all("Amenity")
 
     def test_5_all_place(self):
-        """Tests all() method for Place."""
+        """Method test all() for Place."""
         self.help_test_all("Place")
 
     def test_5_all_review(self):
-        """Tests all() method for Review."""
+        """Method test all() for Review."""
         self.help_test_all("Review")
 
     def help_test_all_multiple(self, classname):
-        """Helper tests all() method with many objects for classname."""
+        """Method Helpe ro test all() with many objs for classname."""
         self.resetStorage()
         self.assertEqual(storage.all(), {})
 
