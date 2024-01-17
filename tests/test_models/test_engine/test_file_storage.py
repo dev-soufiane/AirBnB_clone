@@ -35,7 +35,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(type(storage).__name__, "FileStorage")
 
     def test_3_init_no_args(self):
-        """Tests __init__ with no arguments."""
+        """Method test for  __init__ without args."""
         self.resetStorage()
         with self.assertRaises(TypeError) as e:
             FileStorage.__init__()
