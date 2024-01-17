@@ -2,14 +2,14 @@
 """Defines unittest module for the filestorage class."""
 
 import unittest
+import os
+import json
+import re
+from models import storage
+from models.base_model import BaseModel
 from datetime import datetime
 import time
-from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
-from models import storage
-import re
-import json
-import os
 
 
 class TestFileStorage(unittest.TestCase):
